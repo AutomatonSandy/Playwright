@@ -1,6 +1,4 @@
 import {expect, Locator, Page} from "@playwright/test"
-import { LoginPage } from "./LoginPage";
-
 
 export class LandingPage{
     readonly abTestLink:string = "A/B Testing"
@@ -9,6 +7,7 @@ export class LandingPage{
     readonly allLinksList:Locator[] =[]
 
     readonly page:Page;
+
     constructor( page: Page){
        this.page=page
     }
@@ -22,8 +21,6 @@ export class LandingPage{
    
   async clickFormAuthenticationLink_OnHerokuApp(){
     await this.page.getByText(this.formAuthentication).click();
-     var loginPage = new LoginPage(this.page);
-     loginPage.validateWeAreOnLoginFormPage();
   }
 
   async getAllLinksInAList(){
@@ -34,8 +31,10 @@ export class LandingPage{
        console.log(await this.allLinksList[i].textContent())
     }
     console.log(" The number of links on the page is "+linkCount);  
+  }
 
-
+  async clickShadowDomLink(){
+    await this.page.getByRole('link', { name: 'Shadow DOM' }).click();
   }
 
 
